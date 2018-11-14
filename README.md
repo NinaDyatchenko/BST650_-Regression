@@ -1,2 +1,2 @@
-# BST650_-Regression
+# BST650_Regression
 BST650 Regression assignments
