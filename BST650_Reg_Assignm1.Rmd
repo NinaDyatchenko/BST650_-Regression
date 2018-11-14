@@ -1,0 +1,44 @@
+---
+title: "BST650_Reg_Assign1"
+author: "Nina Dyatchenko"
+date: "November 11, 2018"
+output: word_document
+---
+
+```{r}
+wcgs_df <- read.csv("C:/Users/Nina/Desktop/SASUniversityEdition/myfolders/EPH703 Tulay/wcgs.csv", header = TRUE, stringsAsFactors = FALSE)
+plot(
+  x = wcgs_df$dbp,
+  y = wcgs_df$sbp,
+  xlab = "Diastolic Blood Pressure (mmHg)",
+  ylab = "Systolic Blood Pressure (mmHg)"
+)
+lm(sbp ~ dbp, data = wcgs_df)
+```
+
+Write a function which takes in any two numeric vectors (`x` and `y`) 
+and returns a named vector of the slope and intercept of the linear model 
+$\hat{\textbf{y}} = \beta_0 + \beta_1\textbf{x}$. Your function should use 
+formulas (from your other classes) to calculate these estimates directly 
+(that is, without a call to the `lm()` or any other modelling function in R).
+
+
+```{r}
+vectors <- function(x, y) {
+  SSxy <- sum( (x-mean(x)) * (y-mean(y)) )
+  SSxx <- sum( (x-mean(x))^2 )
+  slope <- SSxy/SSxx
+  inter <-  mean(y) - slope * mean(x)
+  return(list(intercept=inter, slope=slope))
+}
+
+x <- c(3, 3, 5, 7)
+y <- c(9, 4, 6, 8)
+
+vectors(x, y)
+```
+
+Test om `wcgs_df`.
+```{r}
+vectors(x = wcgs_df$dbp, y = wcgs_df$sbp)
+```
