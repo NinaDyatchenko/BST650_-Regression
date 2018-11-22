@@ -1,5 +1,5 @@
-library(readr)
-wcgs_df <- read_csv("data/wcgs.csv")
+#library(readr)
+#wcgs_df <- read_csv("data/wcgs.csv")
 
 
 yX_mat <- as.matrix(wcgs_df[, c("chol", "age", "weight", "sbp")])
@@ -67,15 +67,22 @@ coef_lm <- function(data=data, responce, x1, x2, x3){
   XT <- t(X)  # transpose of matrix X
   XTX <- XT %*% X  # matrix multiplication
   inv_XTX <- solve(XTX)  # second argument is missing, then returns an inverce of XTX
+ 
   beta_num <- inv_XTX %*% XT %*% y
   beta_num
 }
- # return(list(intercept=beta_num[1], beta_num[2]))                                             
-# beta_num[3], beta_num[4])))
- # return(cbind(c(intercept, beta1, beta2, beta3, beta4), c(beta_num[1], beta_num[2], 
- #              beta_num[3], beta_num[4])))
 
 
 new <- coef_lm(wcgs_df, "chol", "age", "weight", "sbp")
 new
+
+str(beta_num)
+
+rownames(beta_num)  #first element missing
+rnamesvector <- rownames(beta_num)
+rnamesvector[1] <- "Intercept"
+rnamesvector
+rownames(beta_num) <- rnamesvector
+beta_num
+
 
